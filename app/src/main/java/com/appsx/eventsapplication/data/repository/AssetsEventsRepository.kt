@@ -12,6 +12,7 @@ class AssetsEventsRepository(
 ) : IEventsRepository {
 
     private val jsonFilePath = "data/events.json"
+
     private var eventDataList: List<IEventData>? = null
 
     override fun load(): List<IEventData> {

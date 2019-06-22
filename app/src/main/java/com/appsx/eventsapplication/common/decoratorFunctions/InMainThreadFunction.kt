@@ -4,7 +4,7 @@ import android.os.Handler
 import android.os.Looper
 
 class InMainThreadFunction(
-        private val origin: IFunction
+    private val origin: IFunction
 ) : IFunction {
 
     private val handler: Handler = Handler(Looper.getMainLooper())

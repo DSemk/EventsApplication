@@ -3,4 +3,5 @@
 
     // Events list
     <string name="empty_active_list">No active events.</string>
+    <string name="reading_events_error">An error occurred while reading events.</string>
 </resources>

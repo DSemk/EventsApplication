@@ -29,7 +29,8 @@ class EventsListActivity : AppCompatActivity() {
             EventsListPresenter(
                 wrapToProxy(
                     EventsListView(
-                        tv_activity_events_list_empty_info,
+                        resources,
+                        tv_activity_events_list_status_message,
                         eventsListRv
                     ),
                     buildViewFunctionCallStack(this)

@@ -1,5 +1,6 @@
 package com.appsx.eventsapplication.presentation.presenter
 
+import com.appsx.eventsapplication.data.repository.exception.ReadAssetFileException
 import com.appsx.eventsapplication.domain.useCase.IGetEventDisplayModelsUseCase
 import com.appsx.eventsapplication.presentation.view.IEventsListView
 
@@ -9,10 +10,14 @@ class EventsListPresenter(
 ) : IEventsListPresenter {
 
     override fun onCreate() {
-        val activeEvents = getActiveEventDisplayModelsUseCase.execute()
+        try {
+            val activeEvents = getActiveEventDisplayModelsUseCase.execute()
 
-        if (activeEvents.isNotEmpty()) {
-            view.showEvents(activeEvents)
+            if (activeEvents.isNotEmpty()) {
+                view.showEvents(activeEvents)
+            }
+        } catch (e: ReadAssetFileException) {
+            view.showReadErrorMessage()
         }
     }
 }

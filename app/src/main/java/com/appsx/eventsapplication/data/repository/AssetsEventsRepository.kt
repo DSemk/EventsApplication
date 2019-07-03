@@ -17,26 +17,19 @@ class AssetsEventsRepository(
 
     override fun load(): List<IEventData> {
         if (eventDataList == null) {
-            val inputStream = assetManager.open(jsonFilePath)
-            val resultString: String
 
+            var inputStream: InputStream? = null
             try {
-                resultString = inputStreamToString(inputStream)
-                inputStream.close()
-            } catch (e: Exception) {
-                inputStream.close()
-                throw ReadAssetFileException(
-                    this::class.java.simpleName +
-                            ": Error reading $jsonFilePath" +
-                            "\n" + e.message
-                )
-            }
-
-            if (resultString.isEmpty()) {
-                eventDataList = mutableListOf()
-            } else {
+                inputStream = assetManager.open(jsonFilePath)
+                val resultString: String = inputStreamToString(inputStream)
                 val events = Gson().fromJson(resultString, GsonEvents::class.java)
                 eventDataList = events.getEvents()
+
+                inputStream.close()
+            } catch (e: Exception) {
+                inputStream?.close()
+                e.printStackTrace()
+                throw ReadAssetFileException("Error reading $jsonFilePath")
             }
         }
 
